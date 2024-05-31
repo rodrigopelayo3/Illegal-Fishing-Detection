@@ -1,6 +1,6 @@
 # Illegal Fishing Detection
 
-# Table of Contents
+## Table of Contents
 
 1. [Illegal Fishing Detection](#illegal-fishing-detection)
    1. [Project Overview](#project-overview)
