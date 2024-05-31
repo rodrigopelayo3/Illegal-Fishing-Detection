@@ -52,6 +52,8 @@ Before we start, I would like to mention why Global Fishing Watch was an importa
   </a>
 </p>
 
+## Datasets from Global Fishing Watch
+
 ### Dataset: Welch et al. (2022) - Hotspots of Unseen Fishing Vessels
 
 **Description**: This dataset includes data on suspected AIS disabling events, which are incidents where fishing vessels intentionally turn off their AIS to conceal their activities. The dataset provides detailed information about each event, including vessel identifiers, timestamps, locations, and vessel characteristics.
@@ -99,58 +101,57 @@ The final integrated dataset combines features from both the Welch et al. (2022)
 
 #### Columns Description
 
-1. **mmsi**: Maritime Mobile Service Identity (MMSI) number of the vessel. This is a unique identifier for each vessel.
-2. **flag_x**: Flag state (ISO3) of the vessel from the hotspots dataset, indicating the country of registration.
-3. **vessel_class_x**: The gear type of the vessel from the hotspots dataset, categorized into various groups.
-4. **registry_vessel_class**: The vessel class as per the registry information.
-5. **inferred_vessel_class**: The inferred class of the vessel based on machine learning models.
-6. **inferred_vessel_class_score**: Confidence score of the inferred vessel class.
-7. **inferred_vessel_class_ag**: Inferred vessel class aggregated.
-8. **inferred_vessel_class_ag_score**: Confidence score of the aggregated inferred vessel class.
-9. **self_reported_fishing**: Boolean indicating whether the vessel self-reported as fishing.
-10. **length_m**: Length of the vessel in meters from the hotspots dataset.
-11. **tonnage_gt**: Tonnage of the vessel in gross tons from the hotspots dataset.
-12. **engine_power_kw**: Engine power of the vessel in kilowatts from the hotspots dataset.
-13. **active_2012**: Boolean indicating if the vessel was active in 2012.
-14. **active_2013**: Boolean indicating if the vessel was active in 2013.
-15. **active_2014**: Boolean indicating if the vessel was active in 2014.
-16. **active_2015**: Boolean indicating if the vessel was active in 2015.
-17. **active_2016**: Boolean indicating if the vessel was active in 2016.
-18. **active_2017**: Boolean indicating if the vessel was active in 2017.
-19. **active_2018**: Boolean indicating if the vessel was active in 2018.
-20. **gap_id**: Unique identifier for the AIS gap event from the Welch dataset.
-21. **vessel_class_y**: The gear type of the vessel from the Welch dataset, categorized into various groups.
-22. **flag_y**: Flag state (ISO3) of the vessel from the Welch dataset, indicating the country of registration.
-23. **vessel_length_m**: Length of the vessel in meters from the Welch dataset.
-24. **vessel_tonnage_gt**: Tonnage of the vessel in gross tons from the Welch dataset.
-25. **gap_start_timestamp**: Timestamp when the AIS gap event started.
-26. **gap_start_lat**: Latitude of the vessel at the start of the AIS gap event.
-27. **gap_start_lon**: Longitude of the vessel at the start of the AIS gap event.
-28. **gap_start_distance_from_shore_m**: Distance from shore (meters) at the start of the AIS gap event.
-29. **gap_end_timestamp**: Timestamp when the AIS gap event ended.
-30. **gap_end_lat**: Latitude of the vessel at the end of the AIS gap event.
-31. **gap_end_lon**: Longitude of the vessel at the end of the AIS gap event.
-32. **gap_end_distance_from_shore_m**: Distance from shore (meters) at the end of the AIS gap event.
-33. **gap_hours**: Duration (hours) of the AIS gap event.
-
+- `mmsi`: Maritime Mobile Service Identity (MMSI) number of the vessel. This is a unique identifier for each vessel.
+- `flag_x`: Flag state (ISO3) of the vessel from the hotspots dataset, indicating the country of registration.
+- `vessel_class_x`: The gear type of the vessel from the hotspots dataset, categorized into various groups.
+- `registry_vessel_class`: The vessel class as per the registry information.
+- `inferred_vessel_class`: The inferred class of the vessel based on machine learning models.
+- `inferred_vessel_class_score`: Confidence score of the inferred vessel class.
+- `inferred_vessel_class_ag`: Inferred vessel class aggregated.
+- `inferred_vessel_class_ag_score`: Confidence score of the aggregated inferred vessel class.
+- `self_reported_fishing`: Boolean indicating whether the vessel self-reported as fishing.
+- `length_m`: Length of the vessel in meters from the hotspots dataset.
+- `tonnage_gt`: Tonnage of the vessel in gross tons from the hotspots dataset.
+- `engine_power_kw`: Engine power of the vessel in kilowatts from the hotspots dataset.
+- `active_2012`: Boolean indicating if the vessel was active in 2012.
+- `active_2013`: Boolean indicating if the vessel was active in 2013.
+- `active_2014`: Boolean indicating if the vessel was active in 2014.
+- `active_2015`: Boolean indicating if the vessel was active in 2015.
+- `active_2016`: Boolean indicating if the vessel was active in 2016.
+- `active_2017`: Boolean indicating if the vessel was active in 2017.
+- `active_2018`: Boolean indicating if the vessel was active in 2018.
+- `gap_id`: Unique identifier for the AIS gap event from the Welch dataset.
+- `vessel_class_y`: The gear type of the vessel from the Welch dataset, categorized into various groups.
+- `flag_y`: Flag state (ISO3) of the vessel from the Welch dataset, indicating the country of registration.
+- `vessel_length_m`: Length of the vessel in meters from the Welch dataset.
+- `vessel_tonnage_gt`: Tonnage of the vessel in gross tons from the Welch dataset.
+- `gap_start_timestamp`: Timestamp when the AIS gap event started.
+- `gap_start_lat`: Latitude of the vessel at the start of the AIS gap event.
+- `gap_start_lon`: Longitude of the vessel at the start of the AIS gap event.
+- `gap_start_distance_from_shore_m`: Distance from shore (meters) at the start of the AIS gap event.
+- `gap_end_timestamp`: Timestamp when the AIS gap event ended.
+- `gap_end_lat`: Latitude of the vessel at the end of the AIS gap event.
+- `gap_end_lon`: Longitude of the vessel at the end of the AIS gap event.
+- `gap_end_distance_from_shore_m`: Distance from shore (meters) at the end of the AIS gap event.
+- `gap_hours`: Duration (hours) of the AIS gap event.
 
 
 ## Getting Started
 
 ### Prerequisites
-- List any software, libraries, or tools required to work with the project.
+- List any software, libraries, or tools required to work with the project. TBD
 
 ### Installation
-- Provide step-by-step instructions on how to set up the project locally.
+- Provide step-by-step instructions on how to set up the project locally. TBD
 
 ### Usage
-- Explain how to run the project, including any scripts or commands.
+- Explain how to run the project, including any scripts or commands. TBD
 
 ## Contributing
-- Guidelines for contributing to the project.
+- Guidelines for contributing to the project. TBD
 
 ## License
-- Information about the project's license.
+- Information about the project's license. (OPTIONAL TBD)
 
 ## Acknowledgements
 - Acknowledge any individuals, organizations, or resources that contributed to the project.
@@ -170,4 +171,4 @@ The final integrated dataset combines features from both the Welch et al. (2022)
 [Tableau.com]: https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white
 [Tableau-url]: https://www.tableau.com/
 
-r
+© 2024 Rodrigo Pelayo Ochoa
