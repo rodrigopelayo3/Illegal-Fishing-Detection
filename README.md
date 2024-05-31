@@ -42,9 +42,9 @@ This section lists the major frameworks and libraries used to bootstrap the proj
 
 ### Dataset Description
 
-To build a comprehensive dataset for this project, I utilized various datasets provided by Global Fishing Watch and meticulously integrated all relevant features and data. This was a challenging and intricate process, but it was essential to ensure the dataset's completeness and accuracy. Below is an overview of the final dataset and the process involved in its creation.
+To build a comprehensive dataset for this project, I utilized various datasets provided by Global Fishing Watch and meticulously integrated all relevant features and data. This was a challenging and iterative process, but it was essential to ensure the dataset's completeness and accuracy. Below is an overview of the final dataset and the process involved in its creation.
 
-Before we start I would like to mention why Global Fishing Watch was an important part of this project:
+Before we start, I would like to mention why Global Fishing Watch was an important part of this project (Click on the image for a YouTube video "Open in a new tab" is recomended):
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=tKxCuW-WWng">
@@ -52,43 +52,88 @@ Before we start I would like to mention why Global Fishing Watch was an importan
   </a>
 </p>
 
+### Dataset: Welch et al. (2022) - Hotspots of Unseen Fishing Vessels
 
-1. **Welch et al. (2022) - Hotspots of Unseen Fishing Vessels:**
-   - **Description:** Data on suspected AIS disabling events by commercial fishing vessels.
-   - **Files:**
-     - TBD
-   - **Table Schema:**
-     - `gap_id`: Unique id of the AIS disabling event
-     - `mmsi`: Maritime Mobile Service Identity number
-     - `vessel_class`: Geartype of the vessel
-     - `flag`: Flag state (ISO3) of the vessel
-     - `vessel_length_m`: Vessel length (meters)
-     - `vessel_tonnage_gt`: Vessel tonnage (gross tons)
-     - `gap_start_timestamp`: Time at the start of the AIS disabling event
-     - `gap_start_lat`: Latitude at the start of the AIS disabling event
-     - `gap_start_lon`: Longitude at the start of the AIS disabling event
-     - `gap_start_distance_from_shore_m`: Distance from shore at the start of the AIS disabling event
-     - `gap_end_timestamp`: Time at the end of the AIS disabling event
-     - `gap_end_lat`: Latitude at the end of the AIS disabling event
-     - `gap_end_lon`: Longitude at the end of the AIS disabling event
-     - `gap_end_distance_from_shore_m`: Distance from shore at the end of the AIS disabling event
-     - `gap_hours`: Duration of the AIS disabling event
+**Description**: This dataset includes data on suspected AIS disabling events, which are incidents where fishing vessels intentionally turn off their AIS to conceal their activities. The dataset provides detailed information about each event, including vessel identifiers, timestamps, locations, and vessel characteristics.
 
-2. **Fishing Effort:**
-   - **Description:** Global datasets of AIS-based fishing effort and vessel presence.
-   - **Files and Formats:**
-     - TBD
-   - **Table Schema (Example):**
-     - `mmsi`: Maritime Mobile Service Identity number
-     - `flag`: Flag state
-     - `vessel_class`: Geartype of the vessel
-     - `registry_vessel_class`: Registered vessel class
-     - `inferred_vessel_class`: Inferred vessel class
-     - `inferred_vessel_class_score`: Inferred vessel class score
-     - `length_m`: Vessel length (meters)
-     - `tonnage_gt`: Vessel tonnage (gross tons)
-     - `engine_power_kw`: Engine power (kilowatts)
-     - `active_[year]`: Activity status for each year
+**Relevance**: This dataset is highly relevant to the project because AIS disabling is a common tactic used in illegal, unreported, and unregulated (IUU) fishing. Identifying patterns and correlating these events with other data can help in predicting and understanding illegal fishing activities.
+
+**Table Schema:**
+- `gap_id`: Unique id of the AIS disabling event
+- `mmsi`: Maritime Mobile Service Identity number
+- `vessel_class`: Geartype of the vessel
+- `flag`: Flag state (ISO3) of the vessel
+- `vessel_length_m`: Vessel length (meters)
+- `vessel_tonnage_gt`: Vessel tonnage (gross tons)
+- `gap_start_timestamp`: Time at the start of the AIS disabling event
+- `gap_start_lat`: Latitude at the start of the AIS disabling event
+- `gap_start_lon`: Longitude at the start of the AIS disabling event
+- `gap_start_distance_from_shore_m`: Distance from shore at the start of the AIS disabling event
+- `gap_end_timestamp`: Time at the end of the AIS disabling event
+- `gap_end_lat`: Latitude at the end of the AIS disabling event
+- `gap_end_lon`: Longitude at the end of the AIS disabling event
+- `gap_end_distance_from_shore_m`: Distance from shore at the end of the AIS disabling event
+- `gap_hours`: Duration of the AIS disabling event
+
+### Dataset: Fishing Effort
+
+**Description**: This dataset contains global AIS-based fishing effort and vessel presence data. It includes detailed information about fishing activities, such as vessel identifiers, fishing effort by flag state and gear type, and vessel characteristics, binned into grid cells and measured in hours.
+
+**Relevance**: This dataset is essential for understanding the overall fishing effort and presence of vessels in different regions. By combining this with the AIS disabling events dataset, you can analyze the correlation between normal fishing activities and suspected illegal activities.
+
+**Table Schema (Example):**
+- `mmsi`: Maritime Mobile Service Identity number
+- `flag`: Flag state
+- `vessel_class`: Geartype of the vessel
+- `registry_vessel_class`: Registered vessel class
+- `inferred_vessel_class`: Inferred vessel class
+- `inferred_vessel_class_score`: Inferred vessel class score
+- `length_m`: Vessel length (meters)
+- `tonnage_gt`: Vessel tonnage (gross tons)
+- `engine_power_kw`: Engine power (kilowatts)
+- `active_[year]`: Activity status for each year
+
+### Merged Dataset Overview
+
+The final integrated dataset combines features from both the Welch et al. (2022) and Fishing Effort datasets. This comprehensive dataset includes the following columns:
+
+#### Columns Description
+
+1. **mmsi**: Maritime Mobile Service Identity (MMSI) number of the vessel. This is a unique identifier for each vessel.
+2. **flag_x**: Flag state (ISO3) of the vessel from the hotspots dataset, indicating the country of registration.
+3. **vessel_class_x**: The gear type of the vessel from the hotspots dataset, categorized into various groups.
+4. **registry_vessel_class**: The vessel class as per the registry information.
+5. **inferred_vessel_class**: The inferred class of the vessel based on machine learning models.
+6. **inferred_vessel_class_score**: Confidence score of the inferred vessel class.
+7. **inferred_vessel_class_ag**: Inferred vessel class aggregated.
+8. **inferred_vessel_class_ag_score**: Confidence score of the aggregated inferred vessel class.
+9. **self_reported_fishing**: Boolean indicating whether the vessel self-reported as fishing.
+10. **length_m**: Length of the vessel in meters from the hotspots dataset.
+11. **tonnage_gt**: Tonnage of the vessel in gross tons from the hotspots dataset.
+12. **engine_power_kw**: Engine power of the vessel in kilowatts from the hotspots dataset.
+13. **active_2012**: Boolean indicating if the vessel was active in 2012.
+14. **active_2013**: Boolean indicating if the vessel was active in 2013.
+15. **active_2014**: Boolean indicating if the vessel was active in 2014.
+16. **active_2015**: Boolean indicating if the vessel was active in 2015.
+17. **active_2016**: Boolean indicating if the vessel was active in 2016.
+18. **active_2017**: Boolean indicating if the vessel was active in 2017.
+19. **active_2018**: Boolean indicating if the vessel was active in 2018.
+20. **gap_id**: Unique identifier for the AIS gap event from the Welch dataset.
+21. **vessel_class_y**: The gear type of the vessel from the Welch dataset, categorized into various groups.
+22. **flag_y**: Flag state (ISO3) of the vessel from the Welch dataset, indicating the country of registration.
+23. **vessel_length_m**: Length of the vessel in meters from the Welch dataset.
+24. **vessel_tonnage_gt**: Tonnage of the vessel in gross tons from the Welch dataset.
+25. **gap_start_timestamp**: Timestamp when the AIS gap event started.
+26. **gap_start_lat**: Latitude of the vessel at the start of the AIS gap event.
+27. **gap_start_lon**: Longitude of the vessel at the start of the AIS gap event.
+28. **gap_start_distance_from_shore_m**: Distance from shore (meters) at the start of the AIS gap event.
+29. **gap_end_timestamp**: Timestamp when the AIS gap event ended.
+30. **gap_end_lat**: Latitude of the vessel at the end of the AIS gap event.
+31. **gap_end_lon**: Longitude of the vessel at the end of the AIS gap event.
+32. **gap_end_distance_from_shore_m**: Distance from shore (meters) at the end of the AIS gap event.
+33. **gap_hours**: Duration (hours) of the AIS gap event.
+
+
 
 ## Getting Started
 
