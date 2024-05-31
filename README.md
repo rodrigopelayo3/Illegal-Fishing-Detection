@@ -1,5 +1,27 @@
 # Illegal Fishing Detection
 
+# Table of Contents
+
+1. [Illegal Fishing Detection](#illegal-fishing-detection)
+   1. [Project Overview](#project-overview)
+      1. [Problem Area](#problem-area)
+      2. [Data Science Solution](#data-science-solution)
+      3. [Impact](#impact)
+   2. [Built With](#built-with)
+   3. [Dataset Description](#dataset-description)
+2. [Datasets from Global Fishing Watch](#datasets-from-global-fishing-watch)
+   1. [Dataset: Welch et al. (2022) - Hotspots of Unseen Fishing Vessels](#dataset-welch-et-al-2022---hotspots-of-unseen-fishing-vessels)
+   2. [Dataset: Fishing Effort](#dataset-fishing-effort)
+   3. [Merged Dataset Overview](#merged-dataset-overview)
+      1. [Columns Description](#columns-description)
+3. [Getting Started](#getting-started)
+   1. [Prerequisites](#prerequisites)
+   2. [Installation](#installation)
+   3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Acknowledgements](#acknowledgements)
+
 ## Project Overview
 
 ### Problem Area
@@ -151,10 +173,10 @@ The final integrated dataset combines features from both the Welch et al. (2022)
 - Guidelines for contributing to the project. TBD
 
 ## License
-- Information about the project's license. (OPTIONAL TBD)
+- Information about the project's license. TBD
 
 ## Acknowledgements
-- Acknowledge any individuals, organizations, or resources that contributed to the project.
+- Acknowledge any individuals, organizations, or resources that contributed to the project. GLOBAL FIHSING WATCH
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
