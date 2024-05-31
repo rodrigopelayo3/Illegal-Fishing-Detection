@@ -44,8 +44,14 @@ This section lists the major frameworks and libraries used to bootstrap the proj
 
 To build a comprehensive dataset for this project, I utilized various datasets provided by Global Fishing Watch and meticulously integrated all relevant features and data. This was a challenging and intricate process, but it was essential to ensure the dataset's completeness and accuracy. Below is an overview of the final dataset and the process involved in its creation.
 
-[![Watch the video](https://img.youtube.com/vi/tKxCuW-WWng/0.jpg)](https://www.youtube.com/watch?v=tKxCuW-WWng)
- 
+Before we start I would like to mention why Global Fishing Watch was an important part of this project:
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=tKxCuW-WWng">
+    <img src="https://img.youtube.com/vi/tKxCuW-WWng/0.jpg" alt="Watch the video">
+  </a>
+</p>
+
 1. **Welch et al. (2022) - Hotspots of Unseen Fishing Vessels:**
    - **Description:** Data on suspected AIS disabling events by commercial fishing vessels.
    - **Files:**
