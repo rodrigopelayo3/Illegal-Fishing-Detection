@@ -52,6 +52,7 @@ Before we start I would like to mention why Global Fishing Watch was an importan
   </a>
 </p>
 
+
 1. **Welch et al. (2022) - Hotspots of Unseen Fishing Vessels:**
    - **Description:** Data on suspected AIS disabling events by commercial fishing vessels.
    - **Files:**
