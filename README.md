@@ -160,8 +160,8 @@ Following the initial anomaly detection with Isolation Forest, I integrated supe
 With this and after analyzing the map we can see that vessels in red (IUU vessels) Tend to be close to Marine Protected areas, as well as the type of fishing vessel it is or even the amopunt of hours spend offline. After this approach and explanation we can continue with the modeling.
 
 <p align="center">
-  <a href="map.html">
-    <img src="map.html" alt="View Map">
+  <a href="map.png">
+    <img src="map.png" alt="View Map">
   </a>
 </p>
 
