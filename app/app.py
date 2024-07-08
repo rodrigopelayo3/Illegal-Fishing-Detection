@@ -3,16 +3,55 @@ import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+# Custom CSS for background color, larger fonts, and reduced padding/margins
+# Custom CSS for background color, larger fonts, and reduced padding/margins
+def set_bg_hack():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background: #041f3d; /* Darker ocean blue background */
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar .sidebar-content {
+            background: #0a3d62; /* Slightly lighter blue for sidebar */
+            padding: 10px; /* Reduced padding for sidebar */
+        }
+        .css-1d391kg p {
+            font-size: 20px; /* Increase font size for paragraphs */
+        }
+        .css-1d391kg h1, .css-1d391kg h2, .css-1d391kg h3, .css-1d391kg h4, .css-1d391kg h5, .css-1d391kg h6 {
+            font-size: 24px; /* Increase font size for headers */
+        }
+        .css-1y0tads {
+            padding: 1rem 2rem; /* Adjust padding for main container */
+            max-width: 100%; /* Use full width */
+        }
+        .css-18e3th9 {
+            padding: 1rem; /* Adjust padding for sidebar */
+            max-width: 100%; /* Use full width */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+set_bg_hack()
+
+
 # Set up the Streamlit app
-st.title('Marine Protected Areas and Vessel Activities')
-st.markdown('### Map displaying Marine Protected Areas and Vessel Activities')
+st.title('Detecting Illegal Fishing')
+st.markdown('### Map displaying the vessels that went missing by AIS from 2017 to 2019')
+
+
 
 # Read the HTML file and embed it in the Streamlit app
 with open('map.html', 'r') as file:
     map_html = file.read()
 
 # Display the HTML string in Streamlit
-st.components.v1.html(map_html, width=700, height=500)
+st.components.v1.html(map_html, width=800, height=500)
 
 # Conversion functions
 def km_to_m(km):
@@ -22,21 +61,21 @@ def nm_to_m(nm):
     return nm * 1852
 
 # User interaction section
-st.sidebar.header('User Input Parameters')
+st.sidebar.header('Please pick up your Parameters')
 
 # User input guide
 st.sidebar.markdown("""
 ### Input Guide:
-- **Gap Hours:** 12 - 899
-- **Distance to MPA (km):** 30.90 - 4592.03
+- **Gap Hours:** 12 - 200
+- **Distance to Marine Protected Area (km):** 31 - 4593
 - **Vessel Class:** Choose from the dropdown
 - **Flag:** Choose from the dropdown
 - **Model:** Choose from the dropdown
 """)
 
 # Essential user input fields
-gap_hours = st.sidebar.number_input('Gap Hours', min_value=12, max_value=900, value=23)
-distance_to_mpa_km = st.sidebar.number_input('Distance to MPA (km)', min_value=30.90, max_value=4592.03, value=1945.93)
+gap_hours = st.sidebar.number_input('Gap Hours', min_value=12, max_value=200, value=23)
+distance_to_mpa_km = st.sidebar.number_input('Distance to a Marine Protected Area (km)', min_value=31.0, max_value=4593.0, value=1945.93)
 vessel_class = st.sidebar.selectbox('Vessel Class', ['drifting_longlines', 'squid_jigger', 'trawlers', 'tuna_purse_seines'])
 
 # Mapping of flags
@@ -52,7 +91,6 @@ flag_mapping = {
     "ECU": "Ecuador",
     "LKA": "Sri Lanka",
     "RUS": "Russia",
-    "UNKNOWN": "Unknown",
     "PRT": "Portugal",
     "SYC": "Seychelles",
     "PAN": "Panama",
@@ -122,7 +160,6 @@ flag_mapping = {
     "NCL": "New Caledonia",
     "ATF": "French Southern Territories",
     "TUV": "Tuvalu",
-    "UNK": "Unknown",
     "CHL": "Chile",
     "TZA": "Tanzania",
     "POL": "Poland",
@@ -231,32 +268,34 @@ reference_table = """
 # Display user inputs
 st.subheader('User Inputs')
 st.write('Gap Hours:', gap_hours)
-st.write('Distance to MPA (km):', distance_to_mpa_km)
+st.write('Distance to a Marine Protected Area (km):', distance_to_mpa_km)
 st.write('Vessel Class:', vessel_class)
 st.write('Flag:', selected_flag)
 st.write('Model:', model_choice)
 
+
 # Display the prediction result with explanation
 st.subheader('IUU Prediction')
+st.write('Your predicted class is: ',prediction[0], 'Indicating that your event is.')
 
 if prediction[0] == 1:
     st.markdown("""
-        **Predicted IUU Class: 1 (Illegal)**
+        **Illegal**
         
         This event is marked as illegal due to the following reasons:
-        - **Vessel Class:** Certain vessel classes, such as trawlers and tuna purse seiners, are highly associated with illegal fishing activities.
-        - **Distance to MPA:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing.
+        - **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.
+        - **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.
         - **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.
     """)
 else:
     st.markdown("""
-        **Predicted IUU Class: 0 (Not Illegal)**
+        **Not Illegal**
         
         This event is marked as not illegal based on the current inputs. However, please note that this is based on the model's prediction and should be further verified.
     """)
 
 # Display the reference table
-st.subheader('Vessel Type and IUU Risk Level')
+st.subheader('Get to know more')
 st.markdown(reference_table)
 
 # Display the advanced parameters if the user has modified them
