@@ -225,8 +225,8 @@ vessel_class_encoded = vessel_class_encoding[vessel_class]
 # Map the model choice to the corresponding file name
 model_files = {
     'Logistic Regression': 'app/LogisticRegression.pkl',
-    'Random Forest': 'app/RandomForest.pkl',
-    'XGBoost': 'app/XGBoost.pkl',
+    'Random Forest': 'RandomForest.pkl',
+    'XGBoost': 'XGBoost.pkl',
     'MLP': 'app/MLP_Neural_Networks.pkl'
 }
 
