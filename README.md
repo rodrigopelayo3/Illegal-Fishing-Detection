@@ -159,18 +159,7 @@ Following the initial anomaly detection with Isolation Forest, I integrated supe
 
 With this and after analyzing the map we can see that vessels in red (IUU vessels) Tend to be close to Marine Protected areas, as well as the type of fishing vessel it is or even the amopunt of hours spend offline. After this approach and explanation we can continue with the modeling.
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example</title>
-</head>
-<body>
-    <h1>Welcome to My Project</h1>
-    <img src="map.html" alt="Example Image">
-</body>
-</html>
+Click [here](https://rodrigpelayo3.github.io/Illegal-Fishing-Detection/map.html) 
 
 We can clearly see that the map is following a pattern based on the number of hours AIS (Automatic Identification System) has been turned off in each event. This aligns closely with the results of the unsupervised Isolation Forest model used to detect anomalies. The model has successfully identified events where boats have turned off their AIS, which is a common tactic used in IUU (Illegal, Unreported, and Unregulated) fishing activities.
 
