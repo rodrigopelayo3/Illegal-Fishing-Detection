@@ -121,15 +121,24 @@ Now that the Datasets were difined and all the iterations were done, I came accr
 | `MPA_Proximity_Level`            | `int64`   | Proximity level to the nearest MPA, with a lower value indicating closer proximity. |
 | `encountered_carrier_during_day` | `int64`   | Indicates whether the vessel encountered a carrier during the day (1 = Yes, 0 = No).|
 | `Distance_event_start_to_end_NM` | `float64` | Distance from the start to the end of the event, measured in nautical miles.        |
-| `IUU_Score`                      | `int64`   | Score indicating the likelihood of IUU fishing activity based on various factors.   |
-| `IUU_Class`                      | `int64`   | Classification of the event as IUU or non-IUU (1 = IUU, 0 = non-IUU).               |
+| `IUU_Classified`                      | `int64`   | Classification of the event as IUU or non-IUU (1 = IUU, 0 = non-IUU).               |
 
 
 ### IUU Classification explanation 
 
-During the research phase I have been strugguling to classify my IUU events, this is due to the fact that actually the topic of IUU fishing is really complex a broad, Illegal Unregulated and Unreported Fishing it is actually a topic that many organizations and researches are trying to identify, This is because IUU is a topic that depends on many factors, regulations across regions, environmental variablity (fishing activities also depend on weather), changes in the behaviour on how vessels perform this IUU activities and many other factors. Also, we need to think about the data availability and why there is no concrete research of IUU in machine learning terms, However with the help of Global Fishin Watch this is getting closer, the fact that now we have SAS and AIS data we can join them and that is pretty much the goal of this project, with the data that we have and a little bit of research and ideation across my head I am trying to make the best approach to this topic. This brings us on how I came up with the IUU classification (at least for now.)
+The journey to classify IUU (Illegal, Unreported, and Unregulated) fishing events has been both challenging and enlightening. IUU fishing is a complex issue influenced by various factors such as regional regulations, environmental conditions, and evolving vessel behaviors. These complexities, combined with limited data availability, have made it difficult for researchers to develop concrete machine learning models for IUU detection. However, organizations like Global Fishing Watch are helping bridge this gap by providing access to SAS and AIS data, which can be integrated to enhance our understanding and detection of IUU activities.
 
-First, I tried different approaches with unsupervised learning (I am going to attach the notebooks). I performed different methods Kmeans, Gmm and agglomerative approaches, using that and different approaches from data and iterations with feature engineering and some research I found out that my models were getting close but not close enough, remembered the map I showed you?, well pretty much my unsupervised models were labeling my data as close to shores or not, and having this got me thinking, I had little time for this sprint and I had to come  with something close to reality to start my base models for this sprint so. Basically I decided that for now (nothing permanent because in the future I want to land this with unsupervised learningn models) i will make a points sytem, this was a very manual approach for the matter on starting modelling,I need to clarify that later I will need to reevaluate the Unsupervised approach and make it better. But for now, I made a system that pretty much "scores" the illegality by, how many hours did the AIS deactivation took? Which type of fishing vessel it is? has the fishing vessel a flag that turns out to be know for IUU? This and many factors were taken into account (I am also going to attach the notebook for further explanation) to take a decision and start modelling and trying to find a way if modelling can give us another approach. I also took into account the next table for the classification.
+Initial Attempts and Manual Classification Approach
+
+In my initial attempts, I utilized unsupervised learning techniques such as K-Means, Gaussian Mixture Models (GMM), and agglomerative clustering. Despite significant feature engineering and iterative adjustments, these models were only partially successful, primarily classifying data based on proximity to shores. This led me to develop a manual points-based system to classify IUU events, considering factors like the duration of AIS deactivation, the type of fishing vessel, and whether the vessel was flagged by a high-risk country known for IUU activities. This approach provided a practical starting point but was not a long-term solution.
+
+Isolation Forest: A Promising Unsupervised Approach
+
+Revisiting unsupervised learning models, I identified Isolation Forest as a promising approach. Isolation Forest is effective in detecting anomalies, which is crucial for identifying IUU fishing patterns. Preliminary results indicated that this method provided meaningful classifications aligned with known IUU activities. The model highlighted anomalous behaviors and regions, offering a more nuanced understanding of the data.
+
+Integration with Supervised Learning Models
+
+Following the initial anomaly detection with Isolation Forest, I integrated supervised learning models to refine the classification. Models like Logistic Regression, Random Forest, and XGBoost were employed to enhance the detection accuracy of IUU fishing activities. These models allowed for better prediction and understanding of IUU events based on the identified anomalies.
 
 ### Investigation: Vessel Types and Their Association with IUU Fishing
 
@@ -150,7 +159,41 @@ First, I tried different approaches with unsupervised learning (I am going to at
 
 With this and after analyzing the map we can see that vessels in red (IUU vessels) Tend to be close to Marine Protected areas, as well as the type of fishing vessel it is or even the amopunt of hours spend offline. After this approach and explanation we can continue with the modeling.
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+</head>
+<body>
+    <h1>Welcome to My Project</h1>
+    <img src="map.html" alt="Example Image">
+</body>
+</html>
 
+We can clearly see that the map is following a pattern based on the number of hours AIS (Automatic Identification System) has been turned off in each event. This aligns closely with the results of the unsupervised Isolation Forest model used to detect anomalies. The model has successfully identified events where boats have turned off their AIS, which is a common tactic used in IUU (Illegal, Unreported, and Unregulated) fishing activities.
+
+- Patterns in AIS Deactivation:
+
+	-	Duration of AIS Deactivation: The map highlights regions where vessels have turned off their AIS for extended periods. This is a strong indicator of potential IUU activities, as longer AIS gaps are often used by vessels to avoid detection while engaging in illegal fishing.
+	-	Anomaly Detection: The red dots on the map represent suspected illegal activities identified by the Isolation Forest model. These anomalies are flagged based on patterns in the AIS data, such as extended deactivation periods and other relevant features.
+
+- Proximity to Marine Protected Areas (MPAs):
+	
+	-	High Density of Anomalies Near MPAs: The map shows a high concentration of red dots near MPAs (marked by blue indicators). This suggests that vessels are turning off their AIS systems to engage in illegal fishing activities within or near these protected zones.
+	-	Enforcement Challenges: The presence of numerous anomalies near MPAs underscores the challenges in monitoring and enforcing fishing regulations in these sensitive areas. MPAs are established to protect marine biodiversity, but the proximity of suspected illegal activities highlights the ongoing risk to these environments.
+
+- Regional Insights:
+
+	-	South America (Pacific Coast): High concentrations of anomalies are observed near the coastlines of Colombia, Ecuador (Galápagos Islands), Peru, and northern Chile. These areas are known for their rich marine resources and stringent protection laws, making them prime targets for IUU activities.
+	-	West Africa: The Gulf of Guinea, Senegal, and Mauritania show dense clusters of suspected illegal activities. This region’s rich fisheries and presence of MPAs make it a critical area for monitoring and enforcement.
+	-	Western Pacific Ocean: The Indonesian Archipelago and the waters around the Philippines display significant red dot clusters, indicating widespread suspected IUU fishing in these biodiverse regions.
+	-	Caribbean and Central America: The Caribbean Sea, especially near Central American countries, shows noticeable clusters of anomalies, highlighting potential IUU activities in these productive waters.
+
+The map provides a visual confirmation of the patterns detected by the Isolation Forest model. It highlights the critical areas where vessels are turning off their AIS, particularly near MPAs, to engage in suspected illegal fishing activities. This analysis emphasizes the need for robust monitoring, better enforcement mechanisms, and international cooperation to combat IUU fishing effectively.
+
+By aligning the map with the results from the Isolation Forest model and focusing on regions with high densities of anomalies, we can enhance our strategies for detecting and preventing illegal fishing activities. This approach ensures the protection of marine resources and biodiversity, especially within and around MPAs.
 
 ## Getting Started
 
@@ -186,5 +229,17 @@ With this and after analyzing the map we can see that vessels in red (IUU vessel
 [Jupyter-url]: https://jupyter.org/
 [Tableau.com]: https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white
 [Tableau-url]: https://www.tableau.com/
+
+## Conclusion
+
+I feel proud and confident that my capstone project on detecting illegal fishing went really well. My approach to managing and merging the datasets and using them to find a way of addressing the problem from my point of view was effective. I also recognize that this is not the definitive solution to the problem but it is another way to tackle and identify suspicious patterns among fishing vessels. The fact that we now have this research can truly support the development of new techniques or improve measures on how this huge global problem is addressed.
+
+My investigation and skills in data science were significant supports in creating this approach to the problem, as well as showcasing my ability to bring solutions to problems through data. I am proud that I showcased my technical skills in machine learning in such an ambitious project that can tackle a major world problem, demonstrating what we can achieve with the correct scope and tools. This last sprint is a testament to all the effort and the process that was experienced during this project.
+
+Using unsupervised learning to identify anomalies and supporting them with supervised learning was a crucial part of the project. The implementation of the Isolation Forest algorithm to detect anomalous behaviors among vessels provided a strong foundation for identifying potential illegal, unreported, and unregulated (IUU) fishing activities. By focusing initially on sensitivity, we ensured that as many true anomalies were detected as possible, which is critical in the initial stages of anomaly detection for IUU fishing. This approach minimized the risk of missing true illegal activities, even though it might have resulted in a higher number of false positives.
+
+Throughout this project, the use of various machine learning models and techniques underscored the importance of a multi-faceted approach to complex problems like IUU fishing. The combination of unsupervised and supervised learning allowed for a comprehensive analysis, starting from anomaly detection to classification and validation. The visualization tools, including ROC and precision-recall curves, confusion matrices, and heatmaps, provided clear and interpretable insights into the models’ performance, aiding in the continuous refinement of the detection system.
+
+In summary, this project not only demonstrated the power of machine learning in tackling global issues but also highlighted the importance of rigorous data analysis, model evaluation, and iterative improvement. The journey from data preprocessing to anomaly detection, and finally to the classification of legal and illegal activities, showcased the potential of data science in making impactful contributions to real-world problems. This project stands as a testament to the hard work, dedication, and analytical skills developed throughout this capstone experience, paving the way for future advancements in the fight against illegal fishing.
 
 © 2024 Rodrigo Pelayo Ochoa
