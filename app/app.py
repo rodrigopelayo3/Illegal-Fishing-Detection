@@ -233,7 +233,7 @@ model_files = {
 # Load the selected model and scaler
 model_file = model_files[model_choice]
 model = joblib.load(model_file)
-scaler = joblib.load('scaler.pkl')
+scaler = joblib.load('app/scaler.pkl')
 
 # Prepare the input data for prediction
 features_to_scale = [
