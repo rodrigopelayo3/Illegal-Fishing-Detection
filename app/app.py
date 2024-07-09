@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from pretty_notification_box import notification_box
 
-# Custom CSS for background color, larger fonts, and reduced padding/margins
 # Custom CSS for background color, larger fonts, and reduced padding/margins
 def set_bg_hack():
     st.markdown(
@@ -39,12 +39,9 @@ def set_bg_hack():
 
 set_bg_hack()
 
-
 # Set up the Streamlit app
 st.title('Detecting Illegal Fishing')
 st.markdown('### Map displaying the vessels that went missing by AIS from 2017 to 2019')
-
-
 
 # Read the HTML file and embed it in the Streamlit app
 with open('map.html', 'r') as file:
@@ -60,23 +57,15 @@ def km_to_m(km):
 def nm_to_m(nm):
     return nm * 1852
 
-# User interaction section
-st.sidebar.header('Please pick up your Parameters')
+st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
 
-# User input guide
-st.sidebar.markdown("""
-### Input Guide:
-- **Gap Hours:** 12 - 200
-- **Distance to Marine Protected Area (km):** 31 - 4593
-- **Vessel Class:** Choose from the dropdown
-- **Flag:** Choose from the dropdown
-- **Model:** Choose from the dropdown
-""")
+# User interaction section
+st.header('Let\'s see if your fishing event is suspicious!')
 
 # Essential user input fields
-gap_hours = st.sidebar.number_input('Gap Hours', min_value=12, max_value=200, value=23)
-distance_to_mpa_km = st.sidebar.number_input('Distance to a Marine Protected Area (km)', min_value=31.0, max_value=4593.0, value=1945.93)
-vessel_class = st.sidebar.selectbox('Vessel Class', ['drifting_longlines', 'squid_jigger', 'trawlers', 'tuna_purse_seines'])
+gap_hours = st.slider('Gap Hours', min_value=12, max_value=200, value=23)
+distance_to_mpa_km = st.slider('Distance to a Marine Protected Area (km)', min_value=31.0, max_value=4593.0, value=1945.93)
+vessel_class = st.selectbox('Vessel Class', ['drifting_longlines', 'squid_jigger', 'trawlers', 'tuna_purse_seines'])
 
 # Mapping of flags
 flag_mapping = {
@@ -186,7 +175,7 @@ flag_mapping = {
 flag_options = [(code, f"{code} - {country}") for code, country in flag_mapping.items()]
 
 # Create the flag dropdown
-selected_flag = st.sidebar.selectbox('Flag', flag_options, format_func=lambda x: x[1])[0]
+selected_flag = st.selectbox('Flag', flag_options, format_func=lambda x: x[1])[0]
 
 # Encode the selected flag
 flag_encoder = LabelEncoder()
@@ -194,10 +183,10 @@ flag_encoder.fit([option[0] for option in flag_options])
 flag_encoded = flag_encoder.transform([selected_flag])[0]
 
 # Dropdown to select the model
-model_choice = st.sidebar.selectbox('Select Model', ['Logistic Regression', 'Random Forest', 'XGBoost', 'MLP'])
+model_choice = st.selectbox('Select Model', ['Logistic Regression', 'Random Forest', 'XGBoost', 'MLP'])
 
 # Hidden menu for additional parameters
-expander = st.sidebar.expander("Adjust Advanced Parameters")
+expander = st.expander("Adjust Advanced Parameters")
 with expander:
     st.markdown("""
     ### Advanced Input Guide:
@@ -207,10 +196,10 @@ with expander:
     - **Tonnage per Meter:** 0.68 - 139.86
     """)
     
-    distance_to_high_risk_zone_km = st.number_input('Distance to High Risk Zone (km)', min_value=9.34, max_value=4370.62, value=1332.32)
-    distance_event_start_to_end_km = st.number_input('Distance Event Start to End (km)', min_value=0.0, max_value=19434.12, value=76.58)
-    distance_difference_from_shore_km = st.number_input('Distance Difference from Shore (km)', min_value=-1984.0, max_value=2027.0, value=-3.0)
-    tonnage_per_meter = st.number_input('Tonnage per Meter', min_value=0.68, max_value=139.86, value=13.21)
+    distance_to_high_risk_zone_km = st.slider('Distance to High Risk Zone (km)', min_value=9.34, max_value=4370.62, value=1332.32)
+    distance_event_start_to_end_km = st.slider('Distance Event Start to End (km)', min_value=0.0, max_value=19434.12, value=76.58)
+    distance_difference_from_shore_km = st.slider('Distance Difference from Shore (km)', min_value=-1984.0, max_value=2027.0, value=-3.0)
+    tonnage_per_meter = st.slider('Tonnage per Meter', min_value=0.68, max_value=139.86, value=13.21)
 
 # Vessel class encoding
 vessel_class_encoding = {
@@ -245,15 +234,6 @@ features_to_scale = [
     tonnage_per_meter
 ]
 
-# Scale the input data
-#features_to_scale_scaled = scaler.transform([features_to_scale])
-
-# Combine scaled and unscaled features
-#input_data = features_to_scale_scaled[0].tolist() + vessel_class_encoded + [flag_encoded]
-
-# Make a prediction
-#prediction = model.predict([input_data])
-
 # Function to make a prediction
 def make_prediction():
     # Scale the input data
@@ -277,16 +257,6 @@ reference_table = """
 | 5    | Other              | Variable             | Varies widely depending on vessel type       | Variable             | **IUU Risk**: Includes smaller, artisanal boats and other less common vessel types. **Description**: The IUU risk in this category depends on the specific type of vessel and fishing practice, with smaller boats often involved due to lack of monitoring, especially in developing regions. |
 """
 
-st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
-# Display user inputs
-st.subheader('User Inputs')
-st.write('Gap Hours:', gap_hours)
-st.write('Distance to a Marine Protected Area (km):', distance_to_mpa_km)
-st.write('Vessel Class:', vessel_class)
-st.write('Flag:', selected_flag)
-st.write('Model:', model_choice)
-
-
 
 # Prediction button
 if st.button('Predict'):
@@ -297,25 +267,23 @@ if st.button('Predict'):
     st.write('Your predicted class is:', prediction, 'indicating that your event is:')
     
     if prediction == 1:
-        st.markdown("""
-            **Illegal**
-            
-            This event is marked as illegal due to the following reasons:
-            - **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.
-            - **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.
-            - **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.
-        """)
+        notification_box(icon='warning', title='Warning', 
+                         textDisplay='This event is marked as illegal due to the following reasons:\n'
+                                     '- **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.\n'
+                                     '- **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.\n'
+                                     '- **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.',
+                         externalLink='',
+                         url='', styles=None, key='illegal')
     else:
-        st.markdown("""
-            **Not Illegal**
-            
-            This event is marked as not illegal based on the current inputs. However, please note that this is based on the model's prediction and should be further verified.
-        """)
-        
-        
+        notification_box(icon='success', title='Success', 
+                         textDisplay='This event is marked as not illegal based on the current inputs. However, please note that this is based on the model\'s prediction and should be further verified.',
+                         externalLink='',
+                         url='', styles=None, key='not_illegal')
+
 st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
+
 # Display the reference table
-st.subheader('Get to know more')
+st.subheader('Get to know more!')
 st.markdown(reference_table)
 
 # Display the advanced parameters if the user has modified them
