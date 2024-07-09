@@ -224,16 +224,16 @@ vessel_class_encoded = vessel_class_encoding[vessel_class]
 
 # Map the model choice to the corresponding file name
 model_files = {
-    'Logistic Regression': 'app/LogisticRegression.pkl',
-    'Random Forest': 'app/RandomForest.pkl',
-    'XGBoost': 'app/XGBoost.pkl',
-    'MLP': 'app/MLP_Neural_Networks.pkl'
+    'Logistic Regression': 'LogisticRegression.pkl',
+    'Random Forest': 'RandomForest.pkl',
+    'XGBoost': 'XGBoost.pkl',
+    'MLP': 'MLP_Neural_Networks.pkl'
 }
 
 # Load the selected model and scaler
 model_file = model_files[model_choice]
 model = joblib.load(model_file)
-scaler = joblib.load('app/scaler.pkl')
+scaler = joblib.load('scaler.pkl')
 
 # Prepare the input data for prediction
 features_to_scale = [
@@ -246,13 +246,25 @@ features_to_scale = [
 ]
 
 # Scale the input data
-features_to_scale_scaled = scaler.transform([features_to_scale])
+#features_to_scale_scaled = scaler.transform([features_to_scale])
 
 # Combine scaled and unscaled features
-input_data = features_to_scale_scaled[0].tolist() + vessel_class_encoded + [flag_encoded]
+#input_data = features_to_scale_scaled[0].tolist() + vessel_class_encoded + [flag_encoded]
 
 # Make a prediction
-prediction = model.predict([input_data])
+#prediction = model.predict([input_data])
+
+# Function to make a prediction
+def make_prediction():
+    # Scale the input data
+    features_to_scale_scaled = scaler.transform([features_to_scale])
+
+    # Combine scaled and unscaled features
+    input_data = features_to_scale_scaled[0].tolist() + vessel_class_encoded + [flag_encoded]
+
+    # Make a prediction
+    prediction = model.predict([input_data])
+    return prediction[0]
 
 # Reference table for explaining predictions
 reference_table = """
@@ -265,6 +277,7 @@ reference_table = """
 | 5    | Other              | Variable             | Varies widely depending on vessel type       | Variable             | **IUU Risk**: Includes smaller, artisanal boats and other less common vessel types. **Description**: The IUU risk in this category depends on the specific type of vessel and fishing practice, with smaller boats often involved due to lack of monitoring, especially in developing regions. |
 """
 
+st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
 # Display user inputs
 st.subheader('User Inputs')
 st.write('Gap Hours:', gap_hours)
@@ -274,26 +287,33 @@ st.write('Flag:', selected_flag)
 st.write('Model:', model_choice)
 
 
-# Display the prediction result with explanation
-st.subheader('IUU Prediction')
-st.write('Your predicted class is: ',prediction[0], 'Indicating that your event is.')
 
-if prediction[0] == 1:
-    st.markdown("""
-        **Illegal**
+# Prediction button
+if st.button('Predict'):
+    prediction = make_prediction()
+    
+    # Display the prediction result with explanation
+    st.subheader('IUU Prediction')
+    st.write('Your predicted class is:', prediction, 'indicating that your event is:')
+    
+    if prediction == 1:
+        st.markdown("""
+            **Illegal**
+            
+            This event is marked as illegal due to the following reasons:
+            - **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.
+            - **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.
+            - **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.
+        """)
+    else:
+        st.markdown("""
+            **Not Illegal**
+            
+            This event is marked as not illegal based on the current inputs. However, please note that this is based on the model's prediction and should be further verified.
+        """)
         
-        This event is marked as illegal due to the following reasons:
-        - **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.
-        - **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.
-        - **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.
-    """)
-else:
-    st.markdown("""
-        **Not Illegal**
         
-        This event is marked as not illegal based on the current inputs. However, please note that this is based on the model's prediction and should be further verified.
-    """)
-
+st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
 # Display the reference table
 st.subheader('Get to know more')
 st.markdown(reference_table)
