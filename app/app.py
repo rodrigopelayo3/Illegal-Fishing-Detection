@@ -284,7 +284,7 @@ st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF
 
 # Display the reference table
 st.subheader('Get to know more!')
-st.markdown(reference_table)
+st.markdown(reference_table) 
 
 # Display the advanced parameters if the user has modified them
 if expander.expanded:
