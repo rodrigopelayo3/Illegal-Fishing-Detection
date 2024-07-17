@@ -202,7 +202,7 @@ By aligning the map with the results from the Isolation Forest model and focusin
 
 <p align="center">
   <a href="appPhoto.png">
-    <img src="MAP.png" alt="View App">
+    <img src="appPhoto.png" alt="View App">
   </a>
 </p>
 
