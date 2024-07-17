@@ -200,6 +200,12 @@ By aligning the map with the results from the Isolation Forest model and focusin
 
 ## Getting Started With The App
 
+<p align="center">
+  <a href="appPhoto.png">
+    <img src="MAP.png" alt="View App">
+  </a>
+</p>
+
 ### About
 This project aims to provide one of many approaches to understanding vessel behavior in suspicious activities and helping organizations, governments, and policymakers address this issue. The final product is an app that showcases the models predictions.
 
@@ -208,7 +214,7 @@ This project aims to provide one of many approaches to understanding vessel beha
 
 ### Usage
 1. Download the Environment and create a new one with the yml file
-2. Download the app.py script and run it in your terminal inside your environment and in the directory of where the files are located, after you are in the right location run this piece of code ```bash streamlit run app.py```
+2. Download the app.py script and run it in your terminal inside your environment and in the directory of where the files are located, after you are in the right location run this piece of code ```streamlit run app.py```
 4. Enjoy playing around with the app!
 
 
