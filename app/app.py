@@ -48,7 +48,7 @@ with open('map.html', 'r') as file:
     map_html = file.read()
 
 # Display the HTML string in Streamlit
-st.components.v1.html(map_html, width=800, height=500)
+st.components.v1.html(map_html, width=700, height=500)
 
 # Conversion functions
 def km_to_m(km):

@@ -14,19 +14,22 @@
    2. [Dataset: Fishing Effort](#dataset-fishing-effort)
    3. [Merged Dataset Overview](#merged-dataset-overview)
       1. [Columns Description](#columns-description)
-3. [Getting Started](#getting-started)
-   1. [Prerequisites](#prerequisites)
-   2. [Installation](#installation)
+3. [Data Dictionary](#data-dictionary)
+4. [IUU Classification explanation](#iuu-classification-explanation)
+5. [Investigation: Vessel Types and Their Association with IUU Fishing](#investigation-vessel-types-and-their-association-with-iuu-fishing)
+6. [Getting Started With The App](#getting-started-with-the-app)
+   1. [About](#about)
+   2. [Prerequisites](#prerequisites)
    3. [Usage](#usage)
-4. [Contributing](#contributing)
-5. [License](#license)
-6. [Acknowledgements](#acknowledgements)
+7. [Contributing](#contributing)
+8. [Acknowledgements](#acknowledgements)
+9. [Conclusion](#conclusion)
 
 ## Project Overview
 
 ### Problem Area
 
-Since I was young, I have always been passionate about nature. I spent as much time as possible outdoors, whether in the mountains or out on the ocean. , I particularly enjoy spearfishing, which gives me an adrenaline rush from catching my own food. As a fisherman and environment enthusiast, I've recently become aware of the significant issue of overfishing and decided to research it further. I discovered that illegal, unreported, and unregulated (IUU) fishing is a major global problem.
+Since I was young, I have always been passionate about nature. I spent as much time as possible outdoors, whether in the mountains or out on the ocean. I've recently become aware of the significant issue of overfishing and decided to research it further. I discovered that illegal, unreported, and unregulated (IUU) fishing is a major global problem.
 
 IUU fishing violates international fishing regulations and is difficult to monitor and control due to the ocean inmensity. This type of fishing, especially using nets that catch all types of species without mercy, has severe environmental impacts and threatens the socioeconomic stability of many regions across the globe. Developing countries that rely on fishing for food security and economic stability are particularly affected, with annual economic losses estimated at around $34 billion globally due to IUU fishing. The ecosystems, the economy and the species are endangered by these activities, which can also be linked to other illegal practices.
 
@@ -56,9 +59,16 @@ This section lists the major frameworks and libraries used to bootstrap the proj
 * [![Python][Python.org]][Python-url]
 * [![SQL][SQL.org]][SQL-url]
 * [![NumPy][NumPy.org]][NumPy-url]
-* [![Pandas][Pandas.pydata.org]][Pandas-url]
 * [![Jupyter][Jupyter.org]][Jupyter-url]
 * [![Tableau][Tableau.com]][Tableau-url]
+* [![Pandas][Pandas.pydata.org]][Pandas-url]
+* [![Matplotlib][Matplotlib.org]][Matplotlib-url]
+* [![Seaborn][Seaborn.org]][Seaborn-url]
+* [![Folium][Folium.org]][Folium-url]
+* [![scikit-learn][Sklearn.org]][Sklearn-url]
+* [![XGBoost][XGBoost.org]][XGBoost-url]
+* [![Joblib][Joblib.org]][Joblib-url]
+* [![Streamlit][Streamlit.org]][Streamlit-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -82,7 +92,7 @@ In order to achieve this It was crucial to obtain a dataset with good quality an
 
 Since I took an aproach at a professional level I encountered a really good challenge on how to build a good dataset. I looked at 13 different Datasets with different many insane amount of csv files each which i had to concatenate and merge to grab sense of data, as well as making sure I was grabbing the right features and making sure the data was not altered or if it was that was altered in the right way.
 
-On the first Sprint I decided to go for 4 datasets but after a really intense research among the project had been advancing I have been grabing the best features for my dataset and finally picked 3 main Datasets and added a little bit of my investigation.
+On the first Sprint I decided to go for 4 datasets but after a really intense research among the project had been advancing I have been grabing the best features for my dataset and finally picked 3 main Datasets and added a little bit of my own investigation.
 
 After analyzing those 13 different datasets from GFW data, I decided to keep 3 and add information from my own research.
 
@@ -188,25 +198,45 @@ The map provides a visual confirmation of the patterns detected by the Isolation
 
 By aligning the map with the results from the Isolation Forest model and focusing on regions with high densities of anomalies, we can enhance our strategies for detecting and preventing illegal fishing activities. This approach ensures the protection of marine resources and biodiversity, especially within and around MPAs.
 
-## Getting Started
+## Getting Started With The App
+
+### About
+This project aims to provide one of many approaches to understanding vessel behavior in suspicious activities and helping organizations, governments, and policymakers address this issue. The final product is an app that showcases the models predictions.
 
 ### Prerequisites
-- List any software, libraries, or tools required to work with the project. TBD
-
-### Installation
-- Provide step-by-step instructions on how to set up the project locally. TBD
+- To download the app is suggested to create a new environment with the yml document provided in the environment folder
 
 ### Usage
-- Explain how to run the project, including any scripts or commands. TBD
+1. Download the Environment and create a new one with the yml file
+2. Download the app.py script and run it in your terminal inside your environment and in the directory of where the files are located, after you are in the right location run this piece of code ```bash streamlit run app.py```
+4. Enjoy playing around with the app!
+
 
 ## Contributing
-- Guidelines for contributing to the project. TBD
+- In order to contribute to the project or give any insights on how to improve it, contact me via my information provided in my github profile @rodrigopelayo3
 
-## License
-- Information about the project's license. TBD
 
 ## Acknowledgements
-- Acknowledge any individuals, organizations, or resources that contributed to the project. GLOBAL FIHSING WATCH
+I would lilke to recognize the people who inspired me to tackle this problem and find a way to approach a solution, first *The Global Fishing Watch* an organization that wants to stop these problems and was able to provide a really good dataset for me to work with. My mentors *Borna Ghotbi* and *Nitin Bhandari* for their guidance and for helping me develop the skills needed for this project. I also want to thank my peers, *Juan Pablo Nieto* and *Jiro Amato*, who shared this experience with me and supported me in making this project a reality.
+
+
+## Conclusion
+
+I feel proud and confident that my capstone project on detecting illegal fishing went really well. My approach to managing and merging the datasets and using them to find a way of addressing the problem from my point of view was effective. I also recognize that this is not the definitive solution to the problem but it is another way to tackle and identify suspicious patterns among fishing vessels. The fact that we now have this research can truly support the development of new techniques or improve measures on how this huge global problem is addressed.
+
+My investigation and skills in data science were significant supports in creating this approach to the problem, as well as showcasing my ability to bring solutions to problems through data. I am proud that I showcased my technical skills in machine learning in such an ambitious project that can tackle a major world problem, demonstrating what we can achieve with the correct scope and tools. This last sprint is a testament to all the effort and the process that was experienced during this project.
+
+Using unsupervised learning to identify anomalies and supporting them with supervised learning was a crucial part of the project. The implementation of the Isolation Forest algorithm to detect anomalous behaviors among vessels provided a strong foundation for identifying potential illegal, unreported, and unregulated (IUU) fishing activities. By focusing initially on sensitivity, we ensured that as many true anomalies were detected as possible, which is critical in the initial stages of anomaly detection for IUU fishing. This approach minimized the risk of missing true illegal activities, even though it might have resulted in a higher number of false positives.
+
+Throughout this project, the use of various machine learning models and techniques underscored the importance of a multi-faceted approach to complex problems like IUU fishing. The combination of unsupervised and supervised learning allowed for a comprehensive analysis, starting from anomaly detection to classification and validation. The visualization tools, including ROC and precision-recall curves, confusion matrices, and heatmaps, provided clear and interpretable insights into the models’ performance, aiding in the continuous refinement of the detection system.
+
+In summary, this project not only demonstrated the power of machine learning in tackling global issues but also highlighted the importance of rigorous data analysis, model evaluation, and iterative improvement. The journey from data preprocessing to anomaly detection, and finally to the classification of legal and illegal activities, showcased the potential of data science in making impactful contributions to real-world problems. This project stands as a testament to the hard work, dedication, and analytical skills developed throughout this capstone experience, paving the way for future advancements in the fight against illegal fishing.
+
+
+
+© 2024 Rodrigo Pelayo Ochoa
+
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -222,17 +252,17 @@ By aligning the map with the results from the Isolation Forest model and focusin
 [Jupyter-url]: https://jupyter.org/
 [Tableau.com]: https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=Tableau&logoColor=white
 [Tableau-url]: https://www.tableau.com/
-
-## Conclusion
-
-I feel proud and confident that my capstone project on detecting illegal fishing went really well. My approach to managing and merging the datasets and using them to find a way of addressing the problem from my point of view was effective. I also recognize that this is not the definitive solution to the problem but it is another way to tackle and identify suspicious patterns among fishing vessels. The fact that we now have this research can truly support the development of new techniques or improve measures on how this huge global problem is addressed.
-
-My investigation and skills in data science were significant supports in creating this approach to the problem, as well as showcasing my ability to bring solutions to problems through data. I am proud that I showcased my technical skills in machine learning in such an ambitious project that can tackle a major world problem, demonstrating what we can achieve with the correct scope and tools. This last sprint is a testament to all the effort and the process that was experienced during this project.
-
-Using unsupervised learning to identify anomalies and supporting them with supervised learning was a crucial part of the project. The implementation of the Isolation Forest algorithm to detect anomalous behaviors among vessels provided a strong foundation for identifying potential illegal, unreported, and unregulated (IUU) fishing activities. By focusing initially on sensitivity, we ensured that as many true anomalies were detected as possible, which is critical in the initial stages of anomaly detection for IUU fishing. This approach minimized the risk of missing true illegal activities, even though it might have resulted in a higher number of false positives.
-
-Throughout this project, the use of various machine learning models and techniques underscored the importance of a multi-faceted approach to complex problems like IUU fishing. The combination of unsupervised and supervised learning allowed for a comprehensive analysis, starting from anomaly detection to classification and validation. The visualization tools, including ROC and precision-recall curves, confusion matrices, and heatmaps, provided clear and interpretable insights into the models’ performance, aiding in the continuous refinement of the detection system.
-
-In summary, this project not only demonstrated the power of machine learning in tackling global issues but also highlighted the importance of rigorous data analysis, model evaluation, and iterative improvement. The journey from data preprocessing to anomaly detection, and finally to the classification of legal and illegal activities, showcased the potential of data science in making impactful contributions to real-world problems. This project stands as a testament to the hard work, dedication, and analytical skills developed throughout this capstone experience, paving the way for future advancements in the fight against illegal fishing.
-
-© 2024 Rodrigo Pelayo Ochoa
+[Matplotlib.org]: https://img.shields.io/badge/Matplotlib-#000080?style=for-the-badge&logo=Matplotlib&logoColor=white
+[Matplotlib-url]: https://matplotlib.org/
+[Seaborn.org]: https://img.shields.io/badge/Seaborn-#4c96d7?style=for-the-badge&logo=Seaborn&logoColor=white
+[Seaborn-url]: https://seaborn.pydata.org/
+[Folium.org]: https://img.shields.io/badge/Folium-#77B928?style=for-the-badge&logo=Folium&logoColor=white
+[Folium-url]: https://python-visualization.github.io/folium/
+[Sklearn.org]: https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white
+[Sklearn-url]: https://scikit-learn.org/
+[XGBoost.org]: https://img.shields.io/badge/XGBoost-#ff6600?style=for-the-badge&logo=XGBoost&logoColor=white
+[XGBoost-url]: https://xgboost.readthedocs.io/
+[Joblib.org]: https://img.shields.io/badge/Joblib-#457b9d?style=for-the-badge&logo=Joblib&logoColor=white
+[Joblib-url]: https://joblib.readthedocs.io/en/latest/
+[Streamlit.org]: https://img.shields.io/badge/Streamlit-#FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white
+[Streamlit-url]: https://streamlit.io/
