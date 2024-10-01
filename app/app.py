@@ -4,7 +4,6 @@ import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from pretty_notification_box import notification_box
 
-pip install pretty_notification_box
 
 # Custom CSS for background color, larger fonts, and reduced padding/margins
 def set_bg_hack():
