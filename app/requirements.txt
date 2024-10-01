@@ -4,4 +4,4 @@ numpy
 joblib
 scikit-learn
 matplotlib
-pretty_notification_box
+
