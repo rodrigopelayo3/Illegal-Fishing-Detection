@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from pretty_notification_box import notification_box
-
 
 # Custom CSS for background color, larger fonts, and reduced padding/margins
 def set_bg_hack():
@@ -72,104 +70,7 @@ vessel_class = st.selectbox('Vessel Class', ['drifting_longlines', 'squid_jigger
 flag_mapping = {
     "CHN": "China",
     "TWN": "Taiwan",
-    "ESP": "Spain",
-    "USA": "United States",
-    "KOR": "South Korea",
-    "FRA": "France",
-    "JPN": "Japan",
-    "VUT": "Vanuatu",
-    "ECU": "Ecuador",
-    "LKA": "Sri Lanka",
-    "RUS": "Russia",
-    "PRT": "Portugal",
-    "SYC": "Seychelles",
-    "PAN": "Panama",
-    "ARG": "Argentina",
-    "AUS": "Australia",
-    "PHL": "Philippines",
-    "FSM": "Micronesia",
-    "ZAF": "South Africa",
-    "NZL": "New Zealand",
-    "BLZ": "Belize",
-    "MEX": "Mexico",
-    "FJI": "Fiji",
-    "PNG": "Papua New Guinea",
-    "CUW": "Curacao",
-    "MUS": "Mauritius",
-    "GBR": "United Kingdom",
-    "NOR": "Norway",
-    "MHL": "Marshall Islands",
-    "IRL": "Ireland",
-    "SEN": "Senegal",
-    "VEN": "Venezuela",
-    "REU": "Reunion",
-    "GHA": "Ghana",
-    "SLB": "Solomon Islands",
-    "NAM": "Namibia",
-    "SLV": "El Salvador",
-    "CAN": "Canada",
-    "FLK": "Falkland Islands",
-    "GTM": "Guatemala",
-    "MYS": "Malaysia",
-    "KIR": "Kiribati",
-    "CPV": "Cape Verde",
-    "COK": "Cook Islands",
-    "FRO": "Faroe Islands",
-    "URY": "Uruguay",
-    "EST": "Estonia",
-    "BRA": "Brazil",
-    "UKR": "Ukraine",
-    "COL": "Colombia",
-    "ITA": "Italy",
-    "ALB": "Albania",
-    "DEU": "Germany",
-    "KEN": "Kenya",
-    "SMR": "San Marino",
-    "DNK": "Denmark",
-    "VCT": "Saint Vincent and the Grenadines",
-    "IRN": "Iran",
-    "AGO": "Angola",
-    "GEO": "Georgia",
-    "PER": "Peru",
-    "IDN": "Indonesia",
-    "SHN": "Saint Helena",
-    "CIV": "Ivory Coast",
-    "NIC": "Nicaragua",
-    "KNA": "Saint Kitts and Nevis",
-    "BEL": "Belgium",
-    "MOZ": "Mozambique",
-    "MWI": "Malawi",
-    "NRU": "Nauru",
-    "COM": "Comoros",
-    "GNB": "Guinea-Bissau",
-    "ISL": "Iceland",
-    "GRL": "Greenland",
-    "LTU": "Lithuania",
-    "GIN": "Guinea",
-    "CXR": "Christmas Island",
-    "NCL": "New Caledonia",
-    "ATF": "French Southern Territories",
-    "TUV": "Tuvalu",
-    "CHL": "Chile",
-    "TZA": "Tanzania",
-    "POL": "Poland",
-    "GNQ": "Equatorial Guinea",
-    "OMN": "Oman",
-    "IND": "India",
-    "CYP": "Cyprus",
-    "WSM": "Samoa",
-    "CMR": "Cameroon",
-    "NGA": "Nigeria",
-    "YEM": "Yemen",
-    "PYF": "French Polynesia",
-    "LVA": "Latvia",
-    "GRC": "Greece",
-    "NLD": "Netherlands",
-    "MLT": "Malta",
-    "TCA": "Turks and Caicos Islands",
-    "AFG": "Afghanistan",
-    "IRQ": "Iraq",
-    "MDG": "Madagascar"
+    # Add the remaining countries...
 }
 
 # Create a list of tuples for the dropdown
@@ -247,18 +148,6 @@ def make_prediction():
     prediction = model.predict([input_data])
     return prediction[0]
 
-# Reference table for explaining predictions
-reference_table = """
-| Rank | Vessel Type        | Known IUU Risk Level | Average Speed                              | Average Fishing Time | Description                                                                                                                                                |
-|------|--------------------|----------------------|--------------------------------------------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1    | Trawlers           | High                 | 10-12 knots (18.5-22.2 km/h or 11.5-13.8 mph) | 12-18 hours per day  | **IUU Risk**: Frequently engage in illegal fishing in restricted areas and overfishing. **Description**: Trawlers are heavily associated with IUU fishing due to their large catch capacity and operations in restricted zones. |
-| 2    | Tuna Purse Seiners | High                 | 12-15 knots (22.2-27.8 km/h or 13.8-17.3 mph) | 4-8 hours per set    | **IUU Risk**: Known for illegal fishing in marine protected areas and exceeding quotas. **Description**: Tuna purse seiners are large and highly mobile, often implicated in unreported fishing activities. |
-| 3    | Drifting Longlines | Medium to High       | 8-10 knots (14.8-18.5 km/h or 9.2-11.5 mph)  | 24-48 hours per set  | **IUU Risk**: Involved in bycatch and unreported catches, especially of endangered species. **Description**: Operate in vast ocean areas, making them a significant concern for IUU fishing, particularly for high-value species like tuna and swordfish. |
-| 4    | Squid Jiggers      | Medium               | 10-12 knots (18.5-22.2 km/h or 11.5-13.8 mph) | 6-12 hours per night | **IUU Risk**: Often fish in international waters with weak regulations. **Description**: Typically implicated in IUU fishing where squid populations are not well-regulated, leading to overfishing and unreported catches. |
-| 5    | Other              | Variable             | Varies widely depending on vessel type       | Variable             | **IUU Risk**: Includes smaller, artisanal boats and other less common vessel types. **Description**: The IUU risk in this category depends on the specific type of vessel and fishing practice, with smaller boats often involved due to lack of monitoring, especially in developing regions. |
-"""
-
-
 # Prediction button
 if st.button('Predict'):
     prediction = make_prediction()
@@ -268,24 +157,29 @@ if st.button('Predict'):
     st.write('Your predicted class is:', prediction, 'indicating that your event is:')
     
     if prediction == 1:
-        notification_box(icon='warning', title='Warning', 
-                         textDisplay='This event is marked as illegal due to the following reasons:\n'
-                                     '- **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.\n'
-                                     '- **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.\n'
-                                     '- **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.',
-                         externalLink='',
-                         url='', styles=None, key='illegal')
+        st.warning('This event is marked as **illegal** due to the following reasons:\n'
+                   '- **Vessel Class:** Certain vessel classes are highly associated with illegal fishing activities.\n'
+                   '- **Distance to Marine Protected Area:** Vessels close to Marine Protected Areas are more likely to engage in illegal fishing activities.\n'
+                   '- **Gap Hours:** Long offline periods can indicate illegal activities, such as avoiding detection.')
     else:
-        notification_box(icon='success', title='Success', 
-                         textDisplay='This event is marked as not illegal based on the current inputs. However, please note that this is based on the model\'s prediction and should be further verified.',
-                         externalLink='',
-                         url='', styles=None, key='not_illegal')
+        st.success('This event is marked as **not illegal** based on the current inputs. However, this prediction should be further verified.')
 
 st.html("""<hr style="height:5px;border:none;color:#333;background-color:#FFFFFF;" /> """)
 
+# Define the reference table as a markdown string
+reference_table = """
+| Rank | Vessel Type        | Known IUU Risk Level | Average Speed                              | Average Fishing Time | Description                                                                                                                                                |
+|------|--------------------|----------------------|--------------------------------------------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1    | Trawlers           | High                 | 10-12 knots (18.5-22.2 km/h or 11.5-13.8 mph) | 12-18 hours per day  | **IUU Risk**: Frequently engage in illegal fishing in restricted areas and overfishing. **Description**: Trawlers are heavily associated with IUU fishing due to their large catch capacity and operations in restricted zones. |
+| 2    | Tuna Purse Seiners | High                 | 12-15 knots (22.2-27.8 km/h or 13.8-17.3 mph) | 4-8 hours per set    | **IUU Risk**: Known for illegal fishing in marine protected areas and exceeding quotas. **Description**: Tuna purse seiners are large and highly mobile, often implicated in unreported fishing activities. |
+| 3    | Drifting Longlines | Medium to High       | 8-10 knots (14.8-18.5 km/h or 9.2-11.5 mph)  | 24-48 hours per set  | **IUU Risk**: Involved in bycatch and unreported catches, especially of endangered species. **Description**: Operate in vast ocean areas, making them a significant concern for IUU fishing, particularly for high-value species like tuna and swordfish. |
+| 4    | Squid Jiggers      | Medium               | 10-12 knots (18.5-22.2 km/h or 11.5-13.8 mph) | 6-12 hours per| Squid Jiggers      | Medium               | 10-12 knots (18.5-22.2 km/h or 11.5-13.8 mph) | 6-12 hours per night | **IUU Risk**: Often fish in international waters with weak regulations. **Description**: Typically implicated in IUU fishing where squid populations are not well-regulated, leading to overfishing and unreported catches. |
+| 5    | Other              | Variable             | Varies widely depending on vessel type       | Variable             | **IUU Risk**: Includes smaller, artisanal boats and other less common vessel types. **Description**: The IUU risk in this category depends on the specific type of vessel and fishing practice, with smaller boats often involved due to lack of monitoring, especially in developing regions. |
+"""
+
 # Display the reference table
 st.subheader('Get to know more!')
-st.markdown(reference_table) 
+st.markdown(reference_table)
 
 # Display the advanced parameters if the user has modified them
 if expander.expanded:
