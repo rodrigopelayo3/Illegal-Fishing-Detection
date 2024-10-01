@@ -123,7 +123,10 @@ model_files = {
 
 # Load the selected model and scaler
 model_file = model_files[model_choice]
-model = joblib.load(model_file)
+try:
+    model = joblib.load(model_file)
+except Exception as e:
+    st.error(f"Failed to load the model in the cloud: {e}")
 scaler = joblib.load('scaler.pkl')
 
 # Prepare the input data for prediction
