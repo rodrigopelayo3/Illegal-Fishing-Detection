@@ -200,7 +200,7 @@ By aligning the map with the results from the Isolation Forest model and focusin
 
 ## Getting Started With The App
 
-(You can also check it out in the cloud here)[https://illegal-fishing-detection.streamlit.app/]
+You can also check it out in the cloud here: https://illegal-fishing-detection.streamlit.app/
 <p align="center">
   <a href="appPhoto.png">
     <img src="appPhoto.png" alt="View App">
